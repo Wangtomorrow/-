@@ -1393,5 +1393,29 @@
 			 
 			<div>后续的内容</div>        
         -->
+        
+        <!--
+        	显示图片一部分
+        		使用背景方式:
+        		对div使用背景图片
+					background:transparent url(*.jpg) no-repeat scroll -83px -0px ;										
+					等同于 
+					background-color:transparent;
+					background-image:url(*.jpg);
+					background-repeat:no-repeat;
+					background-attachment:scroll;
+					background-position: -83px -0px;
+					设置scroll -83px -0px 把图片向左滚动83个像素，向上滚动0个像素。
+					再把div大小设置为和小图片大小一样，即可大小只显示部分图片的效果
+				使用img方式:
+				借助裁剪的方式只显示部分图片：
+					clip:rect(top, right, bottom, left)
+					裁剪之后，只显示被裁剪出来的图片，所以还需要把整个图片向左移动，才看上去像拿到了想要的那部分图片
+					img{
+					    position:absolute;
+					    left:-83px;
+					    clip:rect(0px 108px 25px 83px);
+					} 
+        -->
 	</body>
 </html>
