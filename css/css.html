@@ -735,6 +735,663 @@
 		<span class="red"> 实线红色细边框  </span><br/>
 		-->
 		
+		<!--
+        	元素内边距：指的是元素里的内容与边框之间的距离 
+        	属性： 
+				padding-left: 左内边距 
+				padding-right: 右内边距 
+				padding-top: 上内边距 
+				padding-bottom: 下内边距 
+				padding: 上 右 下 左
+			左内边距:padding-left 
+				值：数字 
+			内边距，写1个和写4个的区别:padding
+				值：如果只写一个，即四个方向的值
+				值：如果写四个，即四个方向的值
+				上 右 下 左,依顺时针的方向依次赋值
+			当内边距的值少于4个的时候
+				如果缺少左内边距的值，则使用右内边距的值。 
+				如果缺少下内边距的值，则使用上内边距的值。 
+				如果缺少右内边距的值，则使用上内边距的值。 
+				举例说明 
+				这是完整4个的 
+				padding: 10 20 40 80 
+				如果只有3个 
+				padding: 10 20 40 
+				那么left取right 
+				padding: 10 20 40 = padding: 10 20 40 20 
+				如果只有两个 
+				padding: 10 20 
+				那么bottom取top，left取right 
+				pading: 10 20 = padding:10 20 10 20 
+				如果只有一个 
+				padding:10 
+				那么right取top，bottom取top，left取top 
+				padding:10 = padding:10 10 10 10 
+        
+        <style>
+		.red{
+		   border:5px solid red;
+		   background-color:green;
+		}
+		 
+		.pad-left{
+		   border:5px solid red;
+		   background-color:green;
+		   padding-left:50px;
+		}
+		 
+		</style>
+		 
+		<span class="red"> 无内边距的span  </span><br/> <br/>
+		 
+		<span class="pad-left"> 左边距为50的span  </span><br/>
+		-->
 		
+		<!--
+        	元素外边距 :指的是元素边框和元素边框之间的距离 
+				属性： 
+				margin-left: 左外边距 
+				margin-right: 右外边距 
+				margin-top: 上外边距 
+				margin-bottom: 下外边距 
+        
+        <style>
+		.red{
+		   border:1px solid red;
+		   background-color:green;
+		}
+		 
+		.margin{
+		   border:1px solid red;
+		   background-color:green;
+		   margin-left:10px;
+		}
+		 
+		</style>
+		 
+		<span class="red"> 无外边距的span  </span>
+		<span class="red"> 无外边距的span  </span>
+		 
+		<br/>
+		 
+		<span class="red"> 无外边距的span  </span>
+		<span class="margin"> 有左外边距的span  </span>
+		-->
+		
+		<!--
+        	边框模型：
+        		真正决定一个元素的表现形式，是由其边框模型决定的
+        
+        <style>
+		.box{
+		    width:70px;
+		    padding:5px;
+		    margin: 10px;
+		}
+		 
+		div{
+		   border:1px solid gray;
+		   font-size:70%;
+		}
+		</style>
+		 
+		<div>
+		 其他元素
+		</div>
+		 
+		<div class="box">
+		   内容宽度70px <br><br>
+		   内边框：5px <br> <br>
+		   外边距：10px <br>
+		</div>
+		 
+		<div>
+		 其他元素
+		</div>
+		-->
+		
+		<!--
+        	超链状态有4种 
+			link - 初始状态，从未被访问过 
+			visited - 已访问过 
+			hover - 鼠标悬停于超链的上方 
+			active - 鼠标左键点击下去，但是尚未弹起的时候
+        
+        <style>
+        	a:link{color: blue;}
+        	a:visited{color: red;}
+        	a:hover{color: black;}
+        	a:active{color: green;}
+        	.a{
+        		text-decoration: none;/*去除下划线的超链接*/
+        		}
+        </style>
+        <a class="a" href="http://www.baidu.com" target="_blank" title="baidu">baidu</a>
+		-->
+		
+		<!--
+        	隐藏元素有两种方式
+        			display:none; 
+					visibility:hidden;
+			使用display:none; 隐藏一个元素，这个元素将不再占有原空间 “坑” 让出来了
+			使用 visibility:hidden;隐藏一个元素，这个元素继续占有原空间，只是“看不见”
+        
+		<style>
+		div.d{
+		  display:none;
+		}
+		 
+		div.v{
+		  visibility:hidden;
+		}
+		</style>
+		<div>可见的div1</div>
+		<div class="d">隐藏的div2,使用display:none隐藏</div>
+		<div>可见的div3</div>
+		<div class="v">隐藏的div4,使用visibility:hidden隐藏</div>
+		<div>可见的div5</div>
+		-->
+		
+		<!--
+        	CSS 把样式写在一个外部文件中
+        	如果把所有的css都写在html文件里面，一旦样式比较多的时候，就会显得不易维护,
+        	这个时候就会选择把所有的css内容，放在一个独立文件里,然后在html中引用该文件 
+        	通常这个文件会被命名为style.css
+        	
+        	把样式代码写在style.css，并在html中包含它
+        	创建一个文件叫style.css.其内容为
+			.p1{
+			  color:red;
+			}
+			.span1{
+			  color:blue;
+			}
+			然后在html中包含该文件
+			<link rel="stylesheet" type="text/css" href="路径" />
+			本地：href="file://d:/style.css"
+        -->
+        
+        <!--
+        	优先级：
+        		style标签与外部文件style.css样式重复，那么优先使用： 最后出现的一个
+        		style标签上的与style属性冲突：优先使用style属性
+        		如果样式上增加了!important，则优先级最高，甚至高于style属性
+        -->
+        
+        
+        <!--
+        	表格应用
+        	<style>
+		table{
+		border-collapse:collapse;
+		width:90%;
+		}
+		tr.odd{
+		background-color:#f8f8f8;
+		}
+		tr.head{
+		    border-bottom-width: 2px;
+		}
+		tr{
+		border-bottom-style: solid;
+		border-bottom-width: 1px;
+		border-bottom-color: lightgray;
+		height:35px;
+		}
+		td{
+		width:25%;
+		text-align:center;
+		}
+		
+		</style>
+		<table>
+		   <tbody><tr class="head">
+		       <td>1</td>
+		       <td>2</td>
+		       <td>3</td>
+		       <td>4</td>
+		    </tr>
+		   <tr class="odd">
+		       <td>1</td>
+		       <td>2</td>
+		       <td>3</td>
+		       <td>4</td>
+		    </tr>
+		   <tr>
+		       <td>1</td>
+		       <td>2</td>
+		       <td>3</td>
+		       <td>4</td>
+		    </tr>
+		   <tr class="odd">
+		       <td>1</td>
+		       <td>2</td>
+		       <td>3</td>
+		       <td>4</td>
+		    </tr>
+		   <tr>
+		       <td>1</td>
+		       <td>2</td>
+		       <td>3</td>
+		       <td>4</td>
+		    </tr>
+		</tbody></table>
+	
+	/*借助边框实现倒三角*/
+	<style>
+		div{
+		   width:0px;
+		   height:0px;
+		   border-top-style:solid;
+		   border-top-color:red;
+		   border-top-width: 10px;
+		   border-left-style:solid;
+		   border-left-color:white;
+		   border-left-width: 10px;   
+		   border-bottom-style:solid;
+		   border-bottom-color:white;
+		   border-bottom-width: 10px;
+		   border-right-style:solid;
+		   border-right-color:white;
+		   border-right-width: 10px;      
+		  }
+	</style>
+	<br />
+	<div >	
+	</div>
+	
+	
+	<style>
+	  table{
+	    width:100%;
+	  }
+	  table td{
+	    text-align:center;
+	  }
+	  table tr.rowborder td{
+	   	background-color: #b2d1ff;
+	    border-right: 2px solid #fff;
+	   	height: 1px;
+	}
+	</style>
+	
+	<table>
+	  <tbody><tr>
+	    <td>商品</td>
+	    <td>数量</td>
+	    <td>价格</td>
+	    <td>小记</td>
+	  </tr>
+	  <tr class="rowborder">
+	    <td></td>
+	    <td></td>
+	    <td></td>
+	    <td></td>
+	  </tr>  
+	</tbody></table>
+        -->
+        
+        <!--
+        	布局
+        -->
+        
+        <!--
+        	绝对定位 ：position 
+				值： absolute 
+				通过指定left,top绝对定位一个元素
+				设置了绝对定位的元素，相当于该元素被从原文档中删除了 
+				绝对定位是基于最近的一个定位了的父容器
+				"绝对定位的文字" 这个p 的父容器div，并没有定位。 所以它的”最近的一个定位了的父容器” 即body
+				通过绝对定位可以把一个元素放在另一个元素上，这样位置就重复了。重复了，就存在一个谁掩盖谁的问题。 这个时候就可以使用
+				z-index属性， 当z-index的值越大，就表示放上面，z-index:越小就表示放下面。
+        
+		<style>
+		p.abs{
+		  position: absolute;
+		  left: 100px;
+		  top: 50px;
+		}
+		.absdiv{
+		  position: absolute;
+		  left: 150px;
+		  top: 50px;
+		  width:215px;
+		  border: 1px solid blue;
+		}
+		</style>
+		 
+		<div>
+		<p >正常文字a</p>
+		<p >正常文字b</p>
+		<p >正常文字c</p>
+		<p >正常文字d</p>
+		<p >正常文字e</p>
+		<p >正常文字f</p>
+		<p >正常文字g</p>
+		</div>
+		 
+		<div class="absdiv">
+		这是一个定位了的div
+		<p class="abs" >绝对定位的文字</p>
+		</div>
+		-->
+		
+		<!--
+        	相对定位：position 
+				值：relative
+			与绝对定位不同的是，相对定位不会把该元素从原文档删除掉，而是在原文档的位置的基础上，移动一定的距离
+        
+       <style>
+		div.r{
+		  position: relative;
+		  left: 0;
+		  top: 0;
+		}
+		  
+		  div.a{
+		      position: absolute;
+		  left: 150px;
+		  top: 0px;
+		  }
+		 
+		</style>
+		 
+		<p>正常文字1</p>
+		<p>正常文字2</p>
+		<div class="r">
+		<div class="a">相对定位的文字3(不占坑)</div>
+		</div>
+		<p>正常文字4</p>
+		<p>正常文字5</p>
+		-->
+		
+		<!--
+        	浮动：浮动的框可以向左或向右移动，直到它的外边缘碰到包含框或另一个浮动框的边框为止。 
+        		float 
+				值： left,right
+				浮动后，原来的“坑”就让出来了，并且是在原来的高度的基础上，向右浮动
+			不允许出现浮动元素 ：clear 
+				值: left right both none 
+			水平排列div:
+				默认的div排列是会换行的 
+				如果使用float就可以达到水平排列的效果，通常会用在菜单，导航栏等地方 
+				如果超出了父容器，还会有自动换行的效果
+       
+        
+        <style>
+		.f{
+		  float:left;
+		}
+		 
+		div{
+		  width:320px;
+		}
+		 
+		.clearp{
+		  clear:left;
+		}
+		 
+		</style>
+		 
+		<div >
+		 <img  class="f" src="a.jpg" width="100px" height="100px"/>
+		 
+		<p>  当图片浮动时，文字围绕着图片
+		 当图片浮动时，文字围绕着图片
+		 当图片浮动时，文字围绕着图片
+		 当图片浮动时，文字围绕着图片
+		 当图片浮动时，文字围绕着图片
+		</p>
+		</div>
+		 
+		<div >
+		 <img  class="f" src="a.jpg" width="100px" height="100px"/>
+		 
+		<p class="clearp">  当图片浮动时，文字却不想围绕图片
+		当图片浮动时，文字却不想围绕图片
+		当图片浮动时，文字却不想围绕图片
+		当图片浮动时，文字却不想围绕图片
+		</p>
+		</div>
+        
+       
+		
+		<style>
+		div#floatingDiv{
+		  width:200px;
+		}
+		div#floatingDiv div{
+		   float:left;
+		}
+		</style>
+		默认的div排列是会换行的
+		 
+		 <div>
+		       菜单1
+		 </div>
+		 <div>
+		       菜单2
+		 </div>
+		 <div>
+		       菜单3
+		 </div>
+		 
+		如果使用float就可以达到水平排列的效果，通常会用在菜单，导航栏等地方
+		 
+		如果超出了父容器，还会有自动换行的效果
+		 
+		<div id="floatingDiv">
+		  <div>
+		       菜单1
+		 </div>
+		 <div>
+		       菜单2
+		 </div>
+		 <div>
+		       菜单3
+		 </div>
+		 <div>
+		       菜单4
+		 </div>
+		 <div>
+		       菜单5
+		 </div>
+		 <div>
+		       菜单6
+		 </div>
+		</div>
+		-->
+		
+		<!--
+        	显示方式:元素的display显示方式有多种，隐藏、块级、内联、内联-块级
+        		display:none; 使得被选择的元素隐藏，并且不占用原来的位置
+        		display:block; 表示块级元素，块级元素会自动在前面和后面加上换行，并且在其上的width和height也能够生效
+        			div默认是块级元素
+					span默认是内联元素(不会有换行,width和height也不会生效)
+				display:inline; 表示内联元素，内联元素前后没有换行，并且在其上的width和height也无效。 其大小由其中的内容决定
+				内联-块级： inline-block：元素处于同一行，同时还能指定大小
+				其他的显示方式
+					list-item 显示为列表
+					table 显示为表格
+					inline-table 显示为前后无换行的表格
+					table-cell 显示为单元格
+        -->
+        
+        <!--
+        	内容居中：
+        	<style>
+			div{
+			  border:1px solid lightgray;
+			  margin:10px;
+			}
+			</style>
+			<div align="center">
+			通过设置属性align="center" 居中的内容
+			</div>
+			 
+			<div  style="text-align:center">
+			通过样式style="text-align:center" 居中的内容
+			</div>
+        -->
+        
+        <!--
+        	元素居中：
+        	<style>
+		  div{
+		     border: solid 1px lightgray;
+		     margin: 10px;
+		  }
+		  span{
+		     border: solid 1px lightskyblue;
+		  }
+		</style>
+		<div> 默认情况下div会占用100%的宽度,所以无法观察元素是否居中</div>
+		 
+		<div style="width:300px;margin:0 auto">
+		  设置本div的宽度，然后再使用样式 margin: 0 auto来使得元素居中</div>
+		 
+		<span style="width:300px;margin:0 auto">
+		  span 是内联元素，无法设置宽度，所以不能通过margin:0 auto居中</span>
+		 
+		<div style="text-align:center">
+		  <span>span的居中可以通过放置在div中，然后让div text-align实现居中</span>
+		</div>
+        -->
+        
+        <!--
+        	左侧固定，右边自动占满
+        	<style>
+			 .left{
+			   width:200px;
+			   float:left;
+			   background-color:pink
+			  }
+			  .right{
+			    overflow:hidden;
+			    background-color:lightskyblue;
+			  }
+			</style>
+			 
+			<div class="left">左边固定宽度</div>
+			 
+			<div class="right">右边自动填满</div>
+        -->
+        
+        <!--
+        	左右固定，中间自适应的布局
+        	<style>
+			 .left{
+			   width:200px;
+			   float:left;
+			   background-color:pink
+			  }
+			  .right{
+			   width:200px;
+			   float:right;
+			   background-color:pink
+			  }
+			  .center {margin:0 200px;   background-color:lightblue}
+			</style>
+			  
+			<div class="left">左边固定宽度</div>
+			<div class="right">左边固定宽度</div>
+			 <div class="center">中间自适应</div>
+			 
+			</head>
+
+        -->
+        
+        <!--
+        	垂直居中
+        	line-height方式
+        	<style>
+			#d {
+			line-height: 100px;
+			}
+			div{
+			  border:solid 1px lightskyblue;
+			}
+			</style> 
+			<div id="d">line-height 适合单独一行垂直居中</div>
+			
+			内边距方式：借助设置相同的上下内边距，实现垂直居中效果，可以用在多行文本上
+			<style>
+			#d {
+			    padding: 30 0;
+			}
+			div{
+			    border:solid 1px lightskyblue;
+			}
+			</style> 
+			<div id="d">多行内容 多行内容 多行内容 多行内容 多行内容 多行内容 多行内容 多行内容 多行内容 多行内容 多行内容 多行内容 多行内容 多行内容 多行内容 多行内容 多行内容 多行内容 多行内容 多行内容 多行内容 多行内容 多行内容 多行内容 多行内容 多行内容 多行内容 多行内容 多行内容 多行内容 多行内容 多行内容 多行内容 多行内容 多行内容 多行内容 多行内容 多行内容 多行内容 多行内容  </div>
+        
+        	table方式
+        	首先通过display: table-cell;把div用单元格的形式显示，
+        	然后借用单元格的垂直居中vertical-align: middle; 来达到效果。
+        	这样对图片也可以居中，上一步 line-height就不能对图片居中。
+			<style>
+			#d {
+			display: table-cell;
+			vertical-align: middle;
+			height:200px;
+			} 
+			div{
+			  border:solid 1px lightskyblue;
+			}
+			</style>
+			<div id="d">
+			<img src="a.jpg">
+			</div>
+        -->
+        
+        <!--
+        	一个div始终贴在下方
+        	首先把蓝色div设置为相对定位，然后把内部的绿色div设置为绝对定位， bottom: 0表示贴在下面
+        	<style>
+			#div1
+			        {
+			            position: relative;
+			            height: 300px;
+			            width: 90%;
+			            background-color: skyblue;
+			        }
+			        #div2
+			        {
+			            position: absolute;
+			            bottom: 0;
+			            height: 30px;
+			            width: 100%;
+			            background-color: lightgreen;
+			        }
+			    </style>
+			 
+			<div id="div1">
+			    <div id="div2"> 无论蓝色div高度如何变化，绿色div都会贴在下面
+			    </div>
+			</div>
+        -->
+        
+        <!--
+        	块之间有空格
+			使用float来解决，float使用完毕之后，
+			记得在下面加上 <div style="clear:both"></div> 用于使得后续的元素，不会和这些span重复在一起
+			<style>
+			div.nocontinue span{
+			border-bottom:2px solid lightgray;
+			  float:left;
+			}
+			</style>
+			  
+			<div class="nocontinue">
+			<span>有换行的span</span>
+			<span>有换行的span</span>
+			<span>有换行的span</span>
+			</div>
+			 
+			<div style="clear:both"></div>
+			 
+			<div>后续的内容</div>        
+        -->
 	</body>
 </html>
