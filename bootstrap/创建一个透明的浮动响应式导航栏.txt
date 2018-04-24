@@ -1,0 +1,70 @@
+<!-- 导航栏 -->
+   	<nav class="navbar navbar-fixed-top" role="navigation">
+			<div class="container">
+				<div class="navbar-header">
+        		<button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+                	data-target="#top-navbar-collapse" >
+		            <span class="sr-only">切换导航</span>
+		            <span class="icon-bar"></span>
+		            <span class="icon-bar"></span>
+		            <span class="icon-bar"></span>
+		        </button>
+        	<a class="navbar-brand" href="index.html" id="a1">导航栏标题</a>
+    </div>
+    <div class="collapse navbar-collapse" id="top-navbar-collapse">
+        <ul class="nav navbar-nav navbar-right">
+            <li ><a href="test.html" >上传</a></li>                      
+            <li ><a href="#" >查询</a></li> 
+            <li><a  href="#" >验证</a></li> 
+            <li><a  href="#" >展示</a></li>
+        </ul>
+    </div>
+    </div>
+	</nav>
+
+<!-- css -->
+/*字体样式设置*/
+body {
+	background: #fff;
+    font-family: 'Open Sans', sans-serif;
+    font-weight: 300;
+    color: #888;
+    text-align: center;
+    
+}
+/*导航栏标题样式设置*/
+#a1{
+	padding-top: 23px; padding-bottom: 23px;
+	font-weight: 900;
+    color: greenyellow;
+    font-style:italic;
+    font-size: x-large;
+}
+/*导航栏样式设置*/
+.navbar {		
+	margin-bottom: 0;
+	background: #333;
+	background: rgba(51, 51, 51, 0.8);
+	border: 0;
+	-moz-border-radius: 0; -webkit-border-radius: 0; border-radius: 0;
+}
+ul.navbar-nav {
+	font-size: 16px;
+	color: #888;
+	text-transform: uppercase;
+}
+/*鼠标指向变色*/
+ul.navbar-nav li a { padding-top: 23px; padding-bottom: 23px; color: #fff; } 
+ul.navbar-nav li a:hover { background: none; color: #2ba560; }
+ul.navbar-nav li a:focus { background: none; color: #2ba560; outline: 0; }
+
+.navbar>.container .navbar-brand { margin-left: 0; }
+/*响应式，小于767px的屏幕的样式设置*/
+@media (max-width: 767px) {
+	
+	.navbar>.container .navbar-brand { margin-left: 15px; }
+	.navbar-collapse { border: 0; }
+	.navbar-toggle { margin-top: 10px; }
+	.navbar-toggle .icon-bar { background: #fff; }
+	ul.navbar-nav li a { padding-top: 13px; padding-bottom: 13px; }
+}
