@@ -1,59 +1,42 @@
-<!DOCTYPE html>
-<script src="assets/bootstrap/js/jquery/2.0.0/jquery.min.js"></script>
-<link href="assets/bootstrap/css/bootstrap/3.3.6/bootstrap.min.css" rel="stylesheet" />
-<link href="assets/css/style.css" rel="stylesheet" />
-<link href="assets/css/media-queries.css" rel="stylesheet"/>
-<link href="assets/fonts/style.css" rel="stylesheet"/>
-<link href="assets/css/animate.css" rel="stylesheet"/>
-<link rel="stylesheet" href="assets/css/fileinput.css" />
-<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Open+Sans:700,300,400">
-<script src="assets/bootstrap/js/bootstrap/3.3.6/bootstrap.min.js"></script>
-<script src="assets/bootstrap/js/jquery/2.0.0/jquery.min.js"></script>
-<script type="text/javascript" src="assets/js/fileinput.js" ></script>
+<!DOCTYPE html>  
+<html>  
+<head>  
+    <title></title>  
+</head>  
+<body>  
+<table id="table" border="1" cellspacing="0" cellpadding="0" >  
+   <tr>  
+        <th>BrandName</th>  
+        <th>Modul</th>  
+        <th>Quantity</th>  
+        <th>Datecode</th>  
+        <th>Remark</th>  
+    </tr>  
+</table>  
 
-<html>
-	<head>
-		<meta charset="UTF-8">
-		<title></title>
-		
-	</head>
-	<body>
-	<!-- 导航栏 -->
-   	<nav class="navbar navbar-fixed-top" role="navigation">
-			<div class="container">
-				<div class="navbar-header">
-        		<button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
-                	data-target="#top-navbar-collapse" >
-		            <span class="sr-only">切换导航</span>
-		            <span class="icon-bar"></span>
-		            <span class="icon-bar"></span>
-		            <span class="icon-bar"></span>
-		        </button>
-        	<a class="navbar-brand" href="index.html" id="a1">可信数字资产存证应用</a>
-    </div>
-    <div class="collapse navbar-collapse" id="top-navbar-collapse">
-        <ul class="nav navbar-nav navbar-right">
-            <li ><a href="upload.html" >上传</a></li>                      
-            <li ><a href="#" >查询</a></li> 
-            <li><a  href="#" >验证</a></li> 
-            <li><a  href="#" >展示</a></li>
-        </ul>
-    </div>
-    </div>
-	</nav>
-	
-	<br /><br /><br /><br />
-	<div class="container kv-main">
-            <div class="page-header">
-            <h1>文件上传</h1>
-            </div>
-            <form enctype="multipart/form-data">
-                <input id="file-0a" class="file" type="file" multiple data-min-file-count="1">
-                <br>
-                <button type="submit" class="btn btn-primary">提交</button>
-                <button type="reset" class="btn btn-default">重置</button>
-            </form>
-            <hr>
-    	
-	</body>
-</html>
+<!--前台页面接收json，然后动态解析json，并且动态生成表格里面的行和列。。。最后往表格里面填充就行-->
+<script>  
+window.onload=function(){  
+var data=[{"BrandName":"ACES","Modul":"91906-0227P","Quantity":"3057","Datecode":"W2Y","Remark":"stock"},  
+{"BrandName":"ADI","Modul":"ADM706TARZ-REEL","Quantity":"2145","Datecode":"W2Y","Remark":"stock"},  
+{"BrandName":"ADI","Modul":"ADR02AUJZ-REEL7","Quantity":"2131","Datecode":"W2Y","Remark":"stock"}];  
+  
+      
+    var table=document.getElementById("table");  
+    for(var i=0;i<data.length;i++){  
+                            var row=table.insertRow(table.rows.length);  
+                            var c1=row.insertCell(0);  
+                            c1.innerHTML=data[i].BrandName;  
+                            var c2=row.insertCell(1);  
+                            c2.innerHTML=data[i].Modul;  
+                            var c3=row.insertCell(2);  
+                            c3.innerHTML=data[i].Quantity;  
+                            var c4=row.insertCell(3);  
+                            c4.innerHTML=data[i].Datecode;  
+                            var c5=row.insertCell(4);  
+                            c5.innerHTML=data[i].Remark;  
+                        }  
+}  
+</script>  
+</body>  
+</html>  

@@ -1,5 +1,5 @@
 body {
-	background: #fff;
+	background: #F0F0F0;
     font-family: 'Open Sans', sans-serif;
     font-weight: 300;
     color: #888;
@@ -235,3 +235,17 @@ ul.navbar-nav li a:focus { background: none; color: #2ba560; outline: 0; }
 .block-3-box .block-3-box-icon:hover { background: none; color: #2ba560; }
 
 .block-3-box .block-3-box-icon i, .block-3-box .block-3-box-icon span { vertical-align: middle; }
+
+
+/*****upload *****/
+#messages {
+    padding: 15px 10px;
+    margin: 30px 0;
+    border: 1px solid #00BCD4;
+    height: 100px;
+}
+#messages p {
+    color: #555;
+    font-size: 14px;
+	font-weight:700;
+}
