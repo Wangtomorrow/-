@@ -32,9 +32,9 @@
 		if(st[1]!="]")
 			{
 				var table=document.getElementById("table");
-				var tr = "<tr><td>"  + "hash值" + "</td><td>" +"关键字"+"</td><td>"+"修改时间"+"</td></tr>";
+				var tr = "<tr><td>"  + "hash值" + "</td><td>" +"组织名称"+"</td><td>"+"法人"+"</td><td>"+"备注"+"</td><td>"+"修改时间"+"</td></tr>";
 			$("table").append(tr);
-
+				
 		
 		var jsonArray=eval(st);  
 		for(var i=0; i<jsonArray.length; i++)   
@@ -43,7 +43,14 @@
 			var key = json.Key;  //主键
 			var record = json.Record;
 			var hash=record.hash;	//hash
+			
+			
 			var keys=record.keys;	//keys
+			var filename_td = keys.filename;
+			var oname_td = keys.oname;
+			var pname_td = keys.pname;
+			var oth_td = keys.oth;
+			
 			var time=record.time;	//time
 			time = time*1000;
 				var date = new Date(time);
@@ -54,7 +61,7 @@
 				m = date.getMinutes() + ':';
 				s = date.getSeconds(); 
 				var time_bj=Y+M+D+h+m+s;
-			var tr = $("<tr><td>" + hash + "</td><td>" +keys+"</td><td>"+time_bj+"</td></tr>");
+			var tr = $("<tr><td>" + hash + "</td><td>" +oname_td+"</td><td>"+pname_td+"</td><td>"+oth_td+"</td><td>"+time_bj+"</td></tr>");
                 //动态生成列表
 
             $("table").append(tr);

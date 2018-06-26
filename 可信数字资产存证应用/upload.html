@@ -54,7 +54,7 @@ function calculate(){
     loadNext();  
 }  
 
-	function search(){
+	function analysis(){
 	var data = new FormData();
 	jQuery.each(jQuery('#file')[0].files,function(i,file){
 		data.append('file-'+i,file);
@@ -73,10 +73,8 @@ function calculate(){
     success:function(req){
 		file_name.value=req.substring(0,14);
 		var st = req.substring(30);
-		if(st[1]!="]")
-		{
-				
 		
+				  
 		var jsonArray=eval(st);  
 		for(var i=0; i<jsonArray.length; i++)   
         {   
@@ -86,16 +84,53 @@ function calculate(){
 			var hash=record.hash;	//hash
 			var keys=record.keys;	//keys
 			var time=record.time;	//time
-			key_put=document.getElementById('key_put'); 
-			key_put.value=keys;
+			
+			var table=document.getElementById("table");
+			var tr = "<tr><td>"  +"组织名称"+"</td><td>"+"法人"+"</td><td>"+"备注"+"</td></tr>";
+			$("table").append(tr);
+
+			var jsonArray=eval(st);  
+			for(var i=0; i<jsonArray.length; i++)   
+			{   
+				var json = eval(jsonArray[i]);
+				var key = json.Key;  //主键
+				var record = json.Record;
+				var hash=record.hash;	//hash
+				var keys=record.keys;	//keys
+				
+				
+				var filename_td = keys.filename;
+				var oname_td = keys.oname;
+				var pname_td = keys.pname;
+				var oth_td = keys.oth;
+				
+				var time=record.time;	//time
+				time = time*1000;
+				var date = new Date(time);
+				Y = date.getFullYear() + '-';
+				M = (date.getMonth()+1 < 10 ? '0'+(date.getMonth()+1) : date.getMonth()+1) + '-';
+				D = date.getDate() + ' ';
+				h = date.getHours() + ':';
+				m = date.getMinutes() + ':';
+				s = date.getSeconds(); 
+				var time_bj=Y+M+D+h+m+s;
+				//alert(time_bj);
+				var tr = $("<tr><td>" +oname_td+"</td><td>"+pname_td+"</td><td>"+oth_td+"</td></tr>");
+					//动态生成列表
+
+				$("table").append(tr);
+				
+				var put_string = '{\\"filename\\":\\"'+filename_td+'\\",\\"oname\\":\\"'+oname_td+'\\",\\"pname\\":\\"'+pname_td+'\\",\\"oth\\":\\"'+oth_td+'\\"}';
+				key_put=document.getElementById('key_put'); 
+				key_put.value=put_string;
         }
 		}
 		
-		
-    }
+	}
+    
 });
-}
-		
+}	
+		 
 	function judge(){
 		
 	var file_name=document.getElementById('file_name').value;
@@ -117,47 +152,16 @@ function calculate(){
 			
 		else{
 			alert("提交成功！");
-			var table=document.getElementById("table");
-			var tr = "<tr><td>"  + "hash值" + "</td><td>" +"关键字"+"</td><td>"+"修改时间"+"</td></tr>";
-			$("table").append(tr);
-
-			var jsonArray=eval(st);  
-			for(var i=0; i<jsonArray.length; i++)   
-			{   
-				var json = eval(jsonArray[i]);
-				var key = json.Key;  //主键
-				var record = json.Record;
-				var hash=record.hash;	//hash
-				var keys=record.keys;	//keys
-				var time=record.time;	//time
-				time = time*1000;
-				var date = new Date(time);
-				Y = date.getFullYear() + '-';
-				M = (date.getMonth()+1 < 10 ? '0'+(date.getMonth()+1) : date.getMonth()+1) + '-';
-				D = date.getDate() + ' ';
-				h = date.getHours() + ':';
-				m = date.getMinutes() + ':';
-				s = date.getSeconds(); 
-				var time_bj=Y+M+D+h+m+s;
-				//alert(time_bj);
-				var tr = $("<tr><td>" + hash + "</td><td>" +keys+"</td><td>"+time_bj+"</td></tr>");
-					//动态生成列表
-
-				$("table").append(tr);
-				/*
-				var recordArray = JSON.stringify(record);  
-				var split=recordArray.split(",");  
-				for(var j=0;j<split.length;j++){
-						console.log(split[j]);  
-				}  
-				*/
+			
 
 			}
 		}
-	}
+	
     
 });
 	}
+			
+	
 </script>  
 	</head>
 	<body>
@@ -195,14 +199,24 @@ function calculate(){
 		<form  action="/upload"  method="post" enctype="multipart/form-data" id="form_post">
              <input id="file" class="file" type="file" multiple data-min-file-count="1" name="uploadfile" />
 		 		<br>
-                <button id="cal"  type="button" class="btn btn-primary" onclick="search()">分析</button>
+                <button id="cal"  type="button" class="btn btn-primary" onclick="analysis()">分析</button>
         
 		</form>
-    
+		<br>
+		<br>
+		<br>
+    	<div class="col-sm-12 container">
+			 <table id="table" style="width:100%;border-collapse:collapse; border:1px solid gray;font-size:18px; text-align:center; " border="1">  
+				  
+			</table>  
+		</div>
+		
 		<div class="col-md-12" style="margin-top:100px">
+			
 		<form id="submit" action="put"  method="get">
 			<input type="hidden" name="filename" id="file_name"/>
-				请确认关键字：<input  name="keys" id="key_put" readonly/><br><br>
+			<input  name="keys" id="key_put" type="hidden"/><br><br>
+			
                 请输入校验码：<input type="password" name="pk" id="pk"/><br><br>
                 <button type="button" class="btn btn-primary" onclick="judge()">确认提交</button>
             </form>

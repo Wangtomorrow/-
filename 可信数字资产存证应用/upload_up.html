@@ -11,15 +11,18 @@
 <script src="assets/bootstrap/js/jquery/2.0.0/jquery.min.js"></script>
 <script type="text/javascript" src="assets/js/fileinput.js" ></script>
 <script type="text/javascript" src="assets/js/spark-md5.js"></script>
-
 <html>
 	<head>
 		<meta charset="UTF-8">
-		<title>验证</title>
-		
-		<script>
-			var k_search;
-			function calculate(){  
+		<title>上传</title>
+		<script>  
+function get_filename(){
+	var fileName = $("#file").val();
+    var strFileName = fileName.substring(fileName.lastIndexOf("\\")+1,fileName.lastIndexOf(".")); 
+		key_put=document.getElementById('key_put'); 
+		key_put.value=strFileName;
+}
+function calculate(){  
     var fileReader = new FileReader(),  
         k=document.getElementById('k'); 
         blobSlice = File.prototype.mozSlice || File.prototype.webkitSlice || File.prototype.slice,  
@@ -41,9 +44,11 @@
         else {  
             console.log("finished loading");  
 			var flag = spark.end();
-            k.innerText="文件的hash值为："+flag;
-			k_search=flag;
-            console.info("computed hash", spark.end()); // compute hash  
+            k.value=flag;
+			//k_search=flag;
+           // k.innerText="文件的hash值为："+spark.end();
+			//var k_search=spark.end();
+           // console.info("computed hash", spark.end()); // compute hash  
         }  
     };  
 
@@ -57,26 +62,30 @@
     loadNext();  
 }  
 
-	function clear()
-		{
-			$("#table tbody").html("");
-		}
 	function search(){
-		clear();
+		get_filename();
+	var data = new FormData();
+	jQuery.each(jQuery('#file')[0].files,function(i,file){
+		data.append('file-'+i,file);
+	});
 	//var a = document.getElementById('k').value;
 	$.ajax({
-    url:"/sign?hash="+k_search,    //请求的url地址
+    url:"/upload",    //请求的url地址
     dataType:"text",   //返回格式为json
+	data:new FormData($('#form_post')[0]),
+	processData:false,
+	mimeType:"multipart/form-data",
+	contentType:false,
+	cache:false,
     async:true,//请求是否异步，默认为异步，这也是ajax重要特性
-    type:"GET",   //请求方式
+    type:"POST",   //请求方式
     success:function(req){
-		
-		var st = req.substring(14);
+	
+		file_name.value=req.substring(0,14);
+		var st = req.substring(30);
 		if(st[1]!="]")
-			{
-				var table=document.getElementById("table");
-				var tr = "<tr><td>"  + "hash值" + "</td><td>" +"组织名称"+"</td><td>"+"法人"+"</td><td>"+"备注"+"</td><td>"+"修改时间"+"</td></tr>";
-				$("table").append(tr);
+		{
+				
 		
 		var jsonArray=eval(st);  
 		for(var i=0; i<jsonArray.length; i++)   
@@ -86,12 +95,52 @@
 			var record = json.Record;
 			var hash=record.hash;	//hash
 			var keys=record.keys;	//keys
-			var filename_td = keys.filename;
-			var oname_td = keys.oname;
-			var pname_td = keys.pname;
-			var oth_td = keys.oth;
 			var time=record.time;	//time
-			time = time*1000;
+			
+        }
+		}
+		
+		
+    }
+});
+		calculate();
+}
+		
+	function judge(){
+		
+	var file_name=document.getElementById('file_name').value;
+	var key_put=document.getElementById('key_put').value;
+	var pk=document.getElementById('pk').value;
+	$.ajax({
+    url:"/put?filename="+file_name+"&keys="+key_put+"&pk="+pk,    //请求的url地址
+    dataType:"text",   //返回格式为json
+    async:true,//请求是否异步，默认为异步，这也是ajax重要特性
+    type:"GET",   //请求方式
+    success:function(req){
+		newData=req.replace(/\s/g,''); 
+		var st = newData.substring(0);
+		if(st[0]=="5")
+		{
+		
+			alert("校验码错误！");
+        }
+			
+		else{
+			alert("提交成功！");
+			var table=document.getElementById("table");
+			var tr = "<tr><td>"  + "hash值" + "</td><td>" +"关键字"+"</td><td>"+"修改时间"+"</td></tr>";
+			$("table").append(tr);
+
+			var jsonArray=eval(st);  
+			for(var i=0; i<jsonArray.length; i++)   
+			{   
+				var json = eval(jsonArray[i]);
+				var key = json.Key;  //主键
+				var record = json.Record;
+				var hash=record.hash;	//hash
+				var keys=record.keys;	//keys
+				var time=record.time;	//time
+				time = time*1000;
 				var date = new Date(time);
 				Y = date.getFullYear() + '-';
 				M = (date.getMonth()+1 < 10 ? '0'+(date.getMonth()+1) : date.getMonth()+1) + '-';
@@ -100,26 +149,25 @@
 				m = date.getMinutes() + ':';
 				s = date.getSeconds(); 
 				var time_bj=Y+M+D+h+m+s;
-			var tr = $("<tr><td>" + hash + "</td><td>" +oname_td+"</td><td>"+pname_td+"</td><td>"+oth_td+"</td><td>"+time_bj+"</td></tr>");
-                //动态生成列表
+				//alert(time_bj);
+				var tr = $("<tr><td>" + hash + "</td><td>" +keys+"</td><td>"+time_bj+"</td></tr>");
+					//动态生成列表
 
-            $("table").append(tr);
-			/*
-			var recordArray = JSON.stringify(record);  
-			var split=recordArray.split(",");  
-			for(var j=0;j<split.length;j++){
-					console.log(split[j]);  
-			}  
-			*/
-			
-        }
+				$("table").append(tr);
+				/*
+				var recordArray = JSON.stringify(record);  
+				var split=recordArray.split(",");  
+				for(var j=0;j<split.length;j++){
+						console.log(split[j]);  
+				}  
+				*/
+
 			}
-		else{
-			alert("未查询到信息！");
 		}
-		
-    }
+	}
+    
 });
+		
 	}
 </script>  
 	</head>
@@ -143,45 +191,41 @@
             <li ><a href="upload.html" >上传</a></li>                      
             <li ><a href="search.html" >查询</a></li> 
             <li><a  href="verification.html" >验证</a></li>
-            
+             
         </ul>
     </div>
     </div>
 	</nav>
 	
-	
-		<br /><br /><br /><br />
-		
-	
+	<br /><br /><br /><br />
 	<div class="container kv-main">
+			<!-- 上传文件 -->
             <div class="page-header">
-            <!-- 上传鉴权文件 -->
-            <h1>请选择要鉴权的文件</h1>
+            <h1>文件上传</h1>
             </div>
-           
-                <br>
-				 
-				 <input id="file" class="file" type="file" multiple data-min-file-count="1">
+		<form  action="/upload"  method="post" enctype="multipart/form-data" id="form_post">
+             <input id="file" class="file" type="file" multiple data-min-file-count="1" name="uploadfile" />
 		 		<br>
-                <button id="cal" type="button" class="btn btn-primary" onclick="calculate()">分析</button>
-             
-            
-            <hr>
-	    <!-- 存储服务器中的文件 -->
-	    <div class="col-md-12">
-	    <div id="messages_2">
-			<div id="k"></div>
+                <button id="cal"  type="button" class="btn btn-primary" onclick="search()">分析</button>
+        
+		</form>
+    
+		<div class="col-md-12" style="margin-top:100px">
+		<form id="submit" action="put"  method="get">
+			<input type="hidden" name="filename" id="file_name"/>
+				请确认关键字：<input  name="keys" id="key_put" /><br><br>
+				请确认hash值：<input  id="k" readonly/><br><br>
+                请输入校验码：<input type="password" name="pk" id="pk"/><br><br>
+                <button type="button" class="btn btn-primary" onclick="judge()">确认提交</button>
+            </form>
 		</div>
-		</div>
+	
+    <hr />
+		
+		<div class="col-sm-12 container">
+			<br>
 		<br>
-		<button type="submit" class="btn btn-primary " onClick="search()">校验</button>
-		<br>
-	    <!-- 上传鉴权的文件 -->
-		<br>
-	    <div class="col-sm-12 container">
-			 <table id="table" style="width:100%;border-collapse:collapse; border:1px solid gray;font-size:18px; text-align:center; " border="1">  
-				  
-			</table>  
+			 
 		</div>
     </div>
 	</body>
